@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>迎接2025</title>
+    <title>新年祝福</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -79,19 +79,19 @@
     </style>
 </head>
 <body>
-    <h1>漂流瓶</h1>
-    <img src="https://via.placeholder.com/200x300" alt="漂流瓶" class="bottle" onclick="showFireworks()">
+    <h1>新年祝福</h1>
+    <img src="https://raw.githubusercontent.com/youjhenguo/memorywithBruce/main/173248.jpg" alt="漂流瓶" class="bottle" onclick="showFireworks()">
 
     <div class="fireworks" id="fireworks"></div>
 
     <div class="input-section" id="inputSection">
         <h2>寫下你的新年希望</h2>
-        <textarea id="wishInput" placeholder="請寫下你的新年希望..."></textarea><br>
+        <textarea id="wishInput" placeholder="請寫下你的新年祝福..."></textarea><br>
         <button onclick="saveWish()">提交祝福</button>
     </div>
 
     <div class="view-section" id="viewSection">
-        <h2>所有新年祝福</h2>
+        <h2>所有希望</h2>
         <div id="wishList" class="messages"></div>
         <button onclick="reloadPage()">重新開始</button>
     </div>
@@ -129,7 +129,7 @@
                 document.getElementById('viewSection').style.display = 'block';
                 displayWishes();
             } else {
-                alert('請輸入一個願望！');
+                alert('請輸入一個祝福！');
             }
         }
 
