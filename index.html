@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>漂流瓶的新年信件</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+        }
+        .bottle {
+            margin-top: 50px;
+            cursor: pointer;
+        }
+        .hidden {
+            display: none;
+        }
+        .message {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff3e0;
+            border: 2px solid #ffa07a;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+        input[type="text"] {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #ffa07a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ff7f50;
+        }
+    </style>
+</head>
+<body>
+    <h1>漂流瓶的新年禮物</h1>
+    <img src="https://via.placeholder.com/200x300" alt="漂流瓶" class="bottle" onclick="showPasswordInput()">
+    
+    <div id="passwordDiv" class="hidden">
+        <p>請輸入密碼來打開信件：</p>
+        <input type="text" id="password" placeholder="輸入密碼">
+        <button onclick="checkPassword()">打開</button>
+    </div>
+
+    <div id="message" class="message">
+        <h2>親愛的：</h2>
+        <p>謝謝你在2024年給我的溫柔與勇氣，
+        迎接2025，讓我們一起繼續努力，
+        我永遠感激你的陪伴！</p>
+        <p>祝新年快樂！</p>
+        <p>—— 你的摯愛</p>
+    </div>
+
+    <script>
+        function showPasswordInput() {
+            document.querySelector('.bottle').style.display = 'none'; // 隱藏漂流瓶
+            document.getElementById('passwordDiv').classList.remove('hidden'); // 顯示輸入框
+        }
+
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            if (password === '0102') {
+                document.getElementById('passwordDiv').style.display = 'none'; // 隱藏密碼輸入區域
+                document.getElementById('message').style.display = 'block'; // 顯示信件內容
+            } else {
+                alert('密碼錯誤，請再試一次！');
+            }
+        }
+    </script>
+</body>
+</html>
