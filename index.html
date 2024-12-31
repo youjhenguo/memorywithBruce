@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新年漂流瓶與希望</title>
+    <title>迎接2025</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #f0f8ff;
+            background-color: black;
+            color: white;
             margin: 0;
             padding: 0;
             overflow: hidden;
@@ -26,13 +27,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: black;
-            display: none;
-            animation: fadeIn 2s forwards;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            pointer-events: none;
         }
         .input-section, .view-section {
             margin-top: 20px;
@@ -46,6 +41,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
+            color: black;
         }
         button {
             margin-top: 10px;
@@ -62,15 +58,28 @@
         .messages {
             margin-top: 20px;
             padding: 20px;
-            background-color: #fff3e0;
+            background-color: #333;
             border: 2px solid #ffa07a;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+        @keyframes fireworks {
+            0% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.5); }
+            100% { opacity: 0; transform: scale(0.5); }
+        }
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            animation: fireworks 2s linear infinite;
         }
     </style>
 </head>
 <body>
-    <h1>新年漂流瓶與希望</h1>
+    <h1>漂流瓶</h1>
     <img src="https://via.placeholder.com/200x300" alt="漂流瓶" class="bottle" onclick="showFireworks()">
 
     <div class="fireworks" id="fireworks"></div>
@@ -78,51 +87,68 @@
     <div class="input-section" id="inputSection">
         <h2>寫下你的新年希望</h2>
         <textarea id="wishInput" placeholder="請寫下你的新年希望..."></textarea><br>
-        <button onclick="saveWish()">提交希望</button>
+        <button onclick="saveWish()">提交祝福</button>
     </div>
 
     <div class="view-section" id="viewSection">
-        <h2>所有新年希望</h2>
+        <h2>所有新年祝福</h2>
         <div id="wishList" class="messages"></div>
         <button onclick="reloadPage()">重新開始</button>
     </div>
 
     <script>
-        const wishes = [];
+        const wishes = JSON.parse(localStorage.getItem('wishes')) || [];
 
         function showFireworks() {
-            document.querySelector('.bottle').style.display = 'none'; // 隱藏漂流瓶
-            const fireworks = document.getElementById('fireworks');
-            fireworks.style.display = 'block'; // 顯示煙火
+            document.querySelector('.bottle').style.display = 'none';
+            const fireworksContainer = document.getElementById('fireworks');
+            for (let i = 0; i < 50; i++) {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.style.left = Math.random() * 100 + '%';
+                firework.style.top = Math.random() * 100 + '%';
+                firework.style.animationDelay = `${Math.random() * 2}s`;
+                fireworksContainer.appendChild(firework);
+            }
+            fireworksContainer.style.display = 'block';
 
             setTimeout(() => {
-                fireworks.style.display = 'none'; // 隱藏煙火
-                document.getElementById('inputSection').style.display = 'block'; // 顯示輸入區域
-            }, 2000);
+                fireworksContainer.style.display = 'none';
+                document.getElementById('inputSection').style.display = 'block';
+            }, 3000);
         }
 
         function saveWish() {
             const wishInput = document.getElementById('wishInput');
             const wish = wishInput.value.trim();
             if (wish) {
-                wishes.push(wish); // 儲存希望
-                wishInput.value = ''; // 清空輸入框
-                document.getElementById('inputSection').style.display = 'none'; // 隱藏輸入區域
-                document.getElementById('viewSection').style.display = 'block'; // 顯示希望列表
+                wishes.push(wish);
+                localStorage.setItem('wishes', JSON.stringify(wishes));
+                wishInput.value = '';
+                document.getElementById('inputSection').style.display = 'none';
+                document.getElementById('viewSection').style.display = 'block';
                 displayWishes();
             } else {
-                alert('請輸入一個新年希望！');
+                alert('請輸入一個祝福！');
             }
         }
 
         function displayWishes() {
             const wishList = document.getElementById('wishList');
-            wishList.innerHTML = wishes.map(wish => `<p>${wish}</p>`).join(''); // 顯示所有希望
+            wishList.innerHTML = wishes.map(wish => `<p>${wish}</p>`).join('');
         }
 
         function reloadPage() {
-            location.reload(); // 重新加載頁面
+            location.reload();
         }
+
+        window.onload = () => {
+            if (wishes.length > 0) {
+                document.querySelector('.bottle').style.display = 'none';
+                document.getElementById('viewSection').style.display = 'block';
+                displayWishes();
+            }
+        };
     </script>
 </body>
 </html>
