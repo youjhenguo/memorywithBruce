@@ -3,177 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新年希望</title>
+    <title>新年祝福</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
             background-color: black;
             color: white;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
+            text-align: center;
+            font-family: Arial, sans-serif;
         }
         .bottle {
-            width: 300px;
-            height: auto;
+            display: block;
+            margin: 50px auto;
+            width: 200px;
             cursor: pointer;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .hidden {
-            display: none;
-        }
-        .fireworks {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-        .input-section, .view-section, .welcome-section {
-            margin-top: 20px;
-            display: none;
-        }
-        textarea {
-            width: 80%;
-            height: 100px;
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            color: black;
-        }
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #ffa07a;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #ff7f50;
-        }
-        .view-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px 15px;
-            background-color: #ffa07a;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .view-button:hover {
-            background-color: #ff7f50;
-        }
-        .messages {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #333;
-            border: 2px solid #ffa07a;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-        }
-        @keyframes fireworks {
-            0% { opacity: 0; transform: scale(0.5); }
-            50% { opacity: 1; transform: scale(1.5); }
-            100% { opacity: 0; transform: scale(0.5); }
-        }
-        .firework {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: white;
-            border-radius: 50%;
-            animation: fireworks 2s linear infinite;
         }
     </style>
 </head>
 <body>
-    <h1>新年希望</h1>
-    <div class="welcome-section" id="welcomeSection">
-        <img src="https://raw.githubusercontent.com/youjhenguo/memorywithBruce/main/173248.jpg" alt="漂流瓶" class="bottle" onclick="showFireworks()">
-        <button class="view-button" onclick="showWishes()">查看所有祝福</button>
-    </div>
-
-    <div class="fireworks" id="fireworks"></div>
-
-    <div class="input-section" id="inputSection">
-        <h2>寫下你的新年希望</h2>
-        <textarea id="wishInput" placeholder="請寫下你的新年希望..."></textarea><br>
-        <button onclick="saveWish()">提交希望</button>
-    </div>
-
-    <div class="view-section" id="viewSection">
-        <h2>所有新年祝福</h2>
-        <div id="wishList" class="messages"></div>
-        <button onclick="goToWelcome()">返回主頁</button>
+    <h1>新年祝福</h1>
+    <div id="welcomeSection">
+        <img src="https://raw.githubusercontent.com/youjhenguo/memorywithBruce/main/173248.jpg" alt="漂流瓶" class="bottle" onclick="goToVideoPage()">
     </div>
 
     <script>
-        const wishes = JSON.parse(localStorage.getItem('wishes')) || [];
-
-        function showFireworks() {
-            document.getElementById('welcomeSection').style.display = 'none';
-            const fireworksContainer = document.getElementById('fireworks');
-            for (let i = 0; i < 50; i++) {
-                const firework = document.createElement('div');
-                firework.className = 'firework';
-                firework.style.left = Math.random() * 100 + '%';
-                firework.style.top = Math.random() * 100 + '%';
-                firework.style.animationDelay = `${Math.random() * 2}s`;
-                fireworksContainer.appendChild(firework);
-            }
-            fireworksContainer.style.display = 'block';
-
-            setTimeout(() => {
-                fireworksContainer.style.display = 'none';
-                document.getElementById('inputSection').style.display = 'block';
-            }, 3000);
+        function goToVideoPage() {
+            // 跳轉到新頁面
+            window.location.href = 'video.html';
         }
-
-        function saveWish() {
-            const wishInput = document.getElementById('wishInput');
-            const wish = wishInput.value.trim();
-            if (wish) {
-                wishes.push(wish);
-                localStorage.setItem('wishes', JSON.stringify(wishes));
-                wishInput.value = '';
-                document.getElementById('inputSection').style.display = 'none';
-                document.getElementById('viewSection').style.display = 'block';
-                displayWishes();
-            } else {
-                alert('請輸入一個希望！');
-            }
-        }
-
-        function displayWishes() {
-            const wishList = document.getElementById('wishList');
-            wishList.innerHTML = wishes.map(wish => `<p>${wish}</p>`).join('');
-        }
-
-        function showWishes() {
-            document.getElementById('welcomeSection').style.display = 'none';
-            document.getElementById('viewSection').style.display = 'block';
-            displayWishes();
-        }
-
-        function goToWelcome() {
-            document.getElementById('viewSection').style.display = 'none';
-            document.getElementById('welcomeSection').style.display = 'block';
-        }
-
-        window.onload = () => {
-            document.getElementById('welcomeSection').style.display = 'block';
-        };
     </script>
 </body>
 </html>
