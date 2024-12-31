@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新年祝福</title>
+    <title>新年希望</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,8 +15,13 @@
             overflow: hidden;
         }
         .bottle {
-            margin-top: 50px;
+            width: 300px;
+            height: auto;
             cursor: pointer;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
         .hidden {
             display: none;
@@ -55,6 +60,20 @@
         button:hover {
             background-color: #ff7f50;
         }
+        .view-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            background-color: #ffa07a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .view-button:hover {
+            background-color: #ff7f50;
+        }
         .messages {
             margin-top: 20px;
             padding: 20px;
@@ -82,19 +101,19 @@
     <h1>新年希望</h1>
     <div class="welcome-section" id="welcomeSection">
         <img src="https://raw.githubusercontent.com/youjhenguo/memorywithBruce/main/173248.jpg" alt="漂流瓶" class="bottle" onclick="showFireworks()">
-        <button onclick="showWishes()">查看所有希望</button>
+        <button class="view-button" onclick="showWishes()">查看所有祝福</button>
     </div>
 
     <div class="fireworks" id="fireworks"></div>
 
     <div class="input-section" id="inputSection">
-        <h2>寫下你的新年祝福</h2>
-        <textarea id="wishInput" placeholder="請寫下你的新年祝福..."></textarea><br>
+        <h2>寫下你的新年希望</h2>
+        <textarea id="wishInput" placeholder="請寫下你的新年希望..."></textarea><br>
         <button onclick="saveWish()">提交希望</button>
     </div>
 
     <div class="view-section" id="viewSection">
-        <h2>所有希望</h2>
+        <h2>所有新年祝福</h2>
         <div id="wishList" class="messages"></div>
         <button onclick="goToWelcome()">返回主頁</button>
     </div>
