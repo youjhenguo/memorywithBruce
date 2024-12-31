@@ -29,7 +29,7 @@
             height: 100%;
             pointer-events: none;
         }
-        .input-section, .view-section {
+        .input-section, .view-section, .welcome-section {
             margin-top: 20px;
             display: none;
         }
@@ -79,28 +79,31 @@
     </style>
 </head>
 <body>
-    <h1>新年祝福</h1>
-    <img src="https://raw.githubusercontent.com/youjhenguo/memorywithBruce/main/173248.jpg" alt="漂流瓶" class="bottle" onclick="showFireworks()">
+    <h1>新年希望</h1>
+    <div class="welcome-section" id="welcomeSection">
+        <img src="https://raw.githubusercontent.com/youjhenguo/memorywithBruce/main/173248.jpg" alt="漂流瓶" class="bottle" onclick="showFireworks()">
+        <button onclick="showWishes()">查看所有希望</button>
+    </div>
 
     <div class="fireworks" id="fireworks"></div>
 
     <div class="input-section" id="inputSection">
-        <h2>寫下你的新年希望</h2>
+        <h2>寫下你的新年祝福</h2>
         <textarea id="wishInput" placeholder="請寫下你的新年祝福..."></textarea><br>
-        <button onclick="saveWish()">提交祝福</button>
+        <button onclick="saveWish()">提交希望</button>
     </div>
 
     <div class="view-section" id="viewSection">
         <h2>所有希望</h2>
         <div id="wishList" class="messages"></div>
-        <button onclick="reloadPage()">重新開始</button>
+        <button onclick="goToWelcome()">返回主頁</button>
     </div>
 
     <script>
         const wishes = JSON.parse(localStorage.getItem('wishes')) || [];
 
         function showFireworks() {
-            document.querySelector('.bottle').style.display = 'none';
+            document.getElementById('welcomeSection').style.display = 'none';
             const fireworksContainer = document.getElementById('fireworks');
             for (let i = 0; i < 50; i++) {
                 const firework = document.createElement('div');
@@ -129,7 +132,7 @@
                 document.getElementById('viewSection').style.display = 'block';
                 displayWishes();
             } else {
-                alert('請輸入一個祝福！');
+                alert('請輸入一個希望！');
             }
         }
 
@@ -138,16 +141,19 @@
             wishList.innerHTML = wishes.map(wish => `<p>${wish}</p>`).join('');
         }
 
-        function reloadPage() {
-            location.reload();
+        function showWishes() {
+            document.getElementById('welcomeSection').style.display = 'none';
+            document.getElementById('viewSection').style.display = 'block';
+            displayWishes();
+        }
+
+        function goToWelcome() {
+            document.getElementById('viewSection').style.display = 'none';
+            document.getElementById('welcomeSection').style.display = 'block';
         }
 
         window.onload = () => {
-            if (wishes.length > 0) {
-                document.querySelector('.bottle').style.display = 'none';
-                document.getElementById('viewSection').style.display = 'block';
-                displayWishes();
-            }
+            document.getElementById('welcomeSection').style.display = 'block';
         };
     </script>
 </body>
